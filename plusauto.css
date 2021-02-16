@@ -1,0 +1,59 @@
+.tile {
+
+  width:100px; 
+
+  height:100px;
+
+  font-family:arial black;
+
+  font-size: x-large;
+
+}
+h1 {
+  text-align: center;
+  }
+body.div {
+  margin: 0; /* 要素の外側の余白を0に定義 */
+  padding: 30; /* 要素の内側の余白を0に定義 */
+}
+
+
+
+.body{
+
+  text-align: center;
+}
+
+
+.nextclass{
+
+  text-align: center;
+}
+.boxclass{
+  text-align: center;
+  
+}
+.naibuclass{
+  display: inline-block;
+  text-align: left;
+}
+
+.thinkclass{
+  font-size: 150%
+}
+.sumclass{
+  font-size: 130%
+}
+.btn-secondary{
+  font-size: 200%
+}
+.next{
+  font-size: 150%;
+
+  width:70px; 
+
+  height:70px;
+}
+.winnerclass{
+  font-size: 200%
+}

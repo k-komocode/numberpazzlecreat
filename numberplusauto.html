@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+
+        <title>一人用バトルパズル</title>
+
+
+        <meta charset="utf-8">
+            <!--　上の文は文字コードの指定 -->
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+            <!--　上の文はbootstrapというフレームワークへのリンク。無料。これがあることでパネルがスタイリッシュになってる -->
+
+        <link rel="stylesheet" href="plusauto.css">
+
+            <!--  hrefは外部リンクや同フォルダ内の別ファイルとのリンクを指定、srcは埋め込むファイルのパス情報
+            多分この上下の文の順番を入れ替えると上手くいかなくなる。リンクを指定した後埋め込むので。多分　-->
+
+        
+
+    </head>
+
+    <body>
+        <h1>VSパズル(一人用)</h1>
+            <div id = 'rulebox' class='boxclass'>
+                <ul id = 'rule' class='naibuclass'>
+                    <h2>ルールおよび操作説明</h2>
+                    <p>
+                        １，まずは下にあるフォームから合計手数と先手後手を決めてください。<br />
+                        ２，すると、それぞれ数字が書いてある9つのパネルが二組、合計18枚出てきます。<br />
+                        ３，このパネルをクリックすることでパネルの数字を操作できます。<br />
+                    </p>
+                    <p>
+                        ４，パネルをクリックすると、クリックした周囲にあるパネルの数字にクリックした数字が足されます。<br />
+                        ５，が、計算の結果二桁になる時には、その一桁目のみが反映されます。<br />
+                        ６，そして、クリックしたパネルの数字には、下にあるネクストパネルの数字が新たに現れます。<br />
+                        ７，同時にネクストパネルにはクリックしたパネルの数字が書き込まれます。<br />
+                    </p>
+                    <p>
+                        ８，これを1ターンとし、それぞれが入力したターン数まで互いに操作します。<br />
+                        ９，最終的に合計が大きい方の勝ちです。<br />
+                        １０，一度開始するとこの説明は消えるので気を付けてください。<br />
+                    </p>
+                </ul>
+        </div>
+        <form class='boxclass'>
+            <p>
+                <label>手数を決めてください。<input type="text" id="movecount" size="40"></label>
+
+            </p>
+            <p>
+                <input type="button" value="決定" onclick="move()">
+            </p>
+        </form>
+        
+        
+
+            <p>
+            <div id="bodydiv" class='panel body'>
+                    <div>あなた</div><br>
+                <button id="panel0" class="btn btn-secondary tile" onclick="pushed(this.id)" > </button> <button id="panel1" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel2" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button><br />
+
+                <button id="panel3" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel4" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel5" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button><br />
+
+                <button id="panel6" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel7"  class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel8" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button><br />
+                    <!-- btn btn-secondary tileは、bootstrapから引っ張ってきた要素。onclickはクリックに大してこう反応せよというコマンド　-->
+
+                <div id = 'sum1' class = 'sumclass'></div><br />
+                <div id = 'play' class = 'thinkclass'>&nbsp;</div>
+
+
+            </div>
+            </p>
+        
+        <br>
+
+        <button class="btn btn-light" onclick="reset()">リセット</button>
+        <br>
+
+
+        </div>
+        <div id = "stop">手番が飛んでます。</div>
+        <div id = "winner" class = "winnerclass"></div> 
+        <div id = "kakunin"></div>
+        <!--<div id = "debug"></div> -->
+        
+                
+            
+            
+        
+        
+        <script type="text/javascript" src="pulsauto.js"></script>
+    </body>
+
+</html>
