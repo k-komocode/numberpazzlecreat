@@ -1,6 +1,6 @@
 let panel = ["panel0","panel1","panel2","panel3","panel4","panel5","panel6","panel7","panel8"]
 
-
+let Q = []
 var sum1 = 0
 var sumhelp1 = 0
 var sum2 = 0
@@ -21,8 +21,8 @@ document.getElementById('nextpanel').innerHTML=5
 
 function reset(){
 
-  for (i = 0; i < panel1.length; i++){
-    document.getElementById(panel1[i]).innerHTML=1+i;
+  for (i = 0; i < panel.length; i++){
+    document.getElementById(panel[i]).innerHTML=Q[i]
     
 }
   document.getElementById("winner").innerHTML = ""
@@ -33,12 +33,6 @@ function reset(){
   if(gote.checked){
      
     document.getElementById('winner').innerHTML = flg2
-    flg1 = 1
-    var CPUattak = function(){
-      CPU();
-    }
-    setTimeout(CPUattak, 500);
-    flg1 = 0
     flg5 = true
     }
 }
@@ -60,7 +54,7 @@ function move(){
     document.getElementById("rule").style.display="none"
     document.getElementById("bodydiv").style.display="block"
 
-    let Q = seisei(count)
+    Q = seisei(count)
 
     for (l=0; l < 9 ;l++){
       document.getElementById(panel[l]).innerHTML = Q[l]
@@ -68,9 +62,8 @@ function move(){
 }
 
 function panelcaluclation(id){
-  if(flg5 == true){
-    var panelnumber = id.replace(/[^0-9]/g, ''); //idから数字の要素だけ抜く。panelnumberは押したパネルの場所
-  }
+  var panelnumber = id.replace(/[^0-9]/g, ''); //idから数字の要素だけ抜く。panelnumberは押したパネルの場所
+
   var subpanel = []       //パネルの表示している要素を入れる配列(この時点では空)
   var de = []             //パネルidそのものを入れる配列
   var returnmatrix = []
@@ -119,7 +112,7 @@ function panelcaluclation(id){
     de.push(panel[8])
   
   }
-  const nextNumber = Number(document.getElementById(panel[panelnumber]).innerHTML) //押したパネルの数値を保存
+  var nextNumber = Number(document.getElementById(panel[panelnumber]).innerHTML) //押したパネルの数値を保存
   for (i=0; i < subpanel.length ;i++){
      var ab = Number(subpanel[i])+ nextNumber 
      ab = String(ab)
@@ -127,6 +120,7 @@ function panelcaluclation(id){
                                             //substringは前の変数(この場合はab)を文字列に変え、
                                             //かつそのn番目以降を返す関数
   }
+  nextNumber = 0
   returnmatrix = [nextNumber,panelnumber]
   for (i=0; i < subpanel.length ;i++){
     returnmatrix.push([de[i],[subpanel[i]]])
@@ -137,44 +131,12 @@ function panelcaluclation(id){
 }
   
 
-  function hantei(){
-    if(flg2/2 == count){  
-      for (l=0; l < panel.length ;l++){
 
-       sumhelp1 = Number(document.getElementById(panel1[l]).innerHTML)
-       sum1 = sum1 + sumhelp1
-       sumhelp2 = Number(document.getElementById(panel2[l]).innerHTML)
-       sum2 = sum2 + sumhelp2
-      }
-      document.getElementById("turn").style.visibility = "hidden"
-
-       document.getElementById("sum1").innerHTML = "合計"+sum1
-       document.getElementById("sum2").innerHTML = "合計"+sum2
-       if (sum1 > sum2){
-         document.getElementById("winner").innerHTML = "<p>左の勝ちです</p>"
-       }else if (sum1 < sum2){
-         document.getElementById("winner").innerHTML = "<p>右の勝ちです</p>"
-       }else{
-         document.getElementById("winner").innerHTML = "<p>同点です</p>"
-       }
-      flg5 = false
-       
-     }
-  }
 
 
 
   function pushed(id){
-    let pushpanel = document.getElementById(id);
-    if ((pushpanel.parentNode.getAttribute('id') == "bodydiv") && (flg1 == 0)){
-      panel = panel1
-      flg4 = true
-      document.getElementById("stop").style.visibility = "hidden"
-    }else {
-      document.getElementById("stop").style.visibility = "visible"
-      flg4 = false
-    }
-    if (flg4 == true){
+
       let result = panelcaluclation(id)
       nextnumber = result.shift()
       panelnumber = result.shift()
@@ -187,45 +149,36 @@ function panelcaluclation(id){
                                                               //それらを使ってfor文で結果を代入していく。
       
        }
-      document.getElementById(panel1[Number(panelnumber)]).innerHTML=Number(document.getElementById("nextpanel").innerHTML);//押したパネルはに
-      document.getElementById('nextpanel').innerHTML = nextnumber
+      document.getElementById(panel[Number(panelnumber)]).innerHTML = nextnumber
       
      
       flg2 = flg2 + 1 
       document.getElementById('winner').innerHTML = flg2
-
-      document.getElementById("think").style.visibility = "visible"
       flg1 = 1
       
-      if (flg2/2 != count){
-        var CPUattak = function(){
-          CPU();
-        }
-        setTimeout(CPUattak, 500);
-      }
      //ここから下は終了後の勝敗判定
      //いちいち押すごとにトリガーするのもかったるいが、やはり常に作動させる方法が思いつかなかった。
 
 
-    }
+    
     flg1 = 0
-    hantei()
+    
   }
 
 
   
 function seisei(tesu){
-  let firstzeroid = [0,1,2,3,5,6,7,8]
+  let firstzeroid = [0,1,2,3,5,6,7,8]   //真ん中を変えると、1手分しか作れない。
   let mondai = [0,0,0,0,0,0,0,0,0]      //問題にする数字。ここの数字をいちいち変える。
 
   var firstnow = new Date();
   var firstsec = firstnow.getSeconds()
   firsthenka = firstsec % 9    //最初の変更 0-8
-  firsthenkaid = firstsec % 8    //最初の変更を加えた要素のID
+  firsthenkaid = firstsec % 8    //最初の変更を加えた要素のID 0-7
 
   mondai[firstzeroid[firsthenkaid]] = firsthenka + 1  //1-9
   
-  firsthenkalist = panelsenbetu(firsthenkaid)
+  firsthenkalist = panelsenbetu(firstzeroid[firsthenkaid])    //ここに入れるidに気を付けよ。
   
   for (i=0; i < firsthenkalist.length ;i++){
     mondai[firsthenkalist[i]] = 10 - mondai[firstzeroid[firsthenkaid]]
