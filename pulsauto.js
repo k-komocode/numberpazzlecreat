@@ -1,6 +1,7 @@
 let panel = ["panel0","panel1","panel2","panel3","panel4","panel5","panel6","panel7","panel8"]
 
-let Q = []
+let Q = []    //生成した問題を格納
+let Qans = []    //生成した答えを格納
 var sum1 = 0
 var sumhelp1 = 0
 var sum2 = 0
@@ -169,10 +170,13 @@ function panelcaluclation(id){
   }
 
 
-  
+//生成関数。問題を指定された操作で解けるよう逆回し的にパズルを作り、パズルの初期状態を返す  
 function seisei(tesu){
-  let firstzeroid = [0,1,2,3,5,6,7,8]   //真ん中を変えると、1手分しか作れない。
-  let mondai = [0,0,0,0,0,0,0,0,0]      //問題にする数字。ここの数字をいちいち変える。
+  let firstzeroid = [0,1,2,3,5,6,7,8]   //ここは、問題の最後の操作を決める部分で使う配列
+                                        //真ん中を変えると、1手分しか作れない(9マス全部の数字が0でなくなる)ので
+                                        //ここの配列では真ん中のパネル、つまりパネル4を抜かしている、
+
+  let mondai = [0,0,0,0,0,0,0,0,0]      //問題にする数字。ここの数字をいちいち変えて、最後にリターンする。
 
   var firstnow = new Date();
   var firstsec = firstnow.getSeconds()
@@ -180,6 +184,7 @@ function seisei(tesu){
   firsthenkaid = firstsec % 8    //最初の変更を加えた要素のID 0-7
 
   mondai[firstzeroid[firsthenkaid]] = firsthenka + 1  //1-9
+  Qans.unshift(firstzeroid[firsthenkaid])  
   
   firsthenkalist = panelsenbetu(firstzeroid[firsthenkaid])    //ここに入れるidに気を付けよ。
   
@@ -188,7 +193,7 @@ function seisei(tesu){
     }
   
   
-
+  //ここから下は最後操作の二つ前以降を生成
   for (i=0; i < tesu-1 ;i++){
     let zero = []
 
@@ -203,9 +208,9 @@ function seisei(tesu){
     var millsec = now1.getMilliseconds()
     
     zeroid = millsec % zero.length
-
-    //以下の関数に入れて、次に0にするところを探索。
-    //ここが無ければ、0のパネルが無くなってしまい、手数分続けることができなくなる。
+    Qans.unshift(zero[zeroid])  
+    //以下の関数に入れて、次に0にするところ(問題を解く段階では押すパネル)を探索。
+    //ここがあることで次の手の生成に困らない。
 
     nextzero = panelsenbetu2(zero[zeroid],mondai)
 
@@ -298,3 +303,9 @@ function panelsenbetu2(panelnu,ds){
   return d
 
 }  
+
+
+
+function kakunin(){
+  document.getElementById("kakunin").innerHTML = Qans
+}
