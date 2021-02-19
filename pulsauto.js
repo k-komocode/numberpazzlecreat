@@ -10,10 +10,10 @@ var flg2 = 0
 var flg4 = new Boolean()
 
 
-document.getElementById("stop").style.visibility = "hidden"
+
 
 document.getElementById("bodydiv").style.display="none"
-document.getElementById("think").style.visibility = "hidden"
+document.getElementById("success").style.visibility = "hidden"
 
 
 document.getElementById('nextpanel').innerHTML=5
@@ -154,15 +154,18 @@ function panelcaluclation(id){
      
       flg2 = flg2 + 1 
       document.getElementById('winner').innerHTML = flg2
-      flg1 = 1
+
       
      //ここから下は終了後の勝敗判定
      //いちいち押すごとにトリガーするのもかったるいが、やはり常に作動させる方法が思いつかなかった。
-
-
-    
     flg1 = 0
-    
+    for(i=0; i < panel.length ;i++) {
+      flg1 = flg1 + Number(document.getElementById(panel[i]).innerHTML)
+    }
+    if (flg1 == 0){
+     document.getElementById("success").style.visibility = "visible"
+    }
+
   }
 
 

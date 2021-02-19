@@ -30,19 +30,16 @@
                     <h2>ルールおよび操作説明</h2>
                     <p>
                         １，まずは下にあるフォームから合計手数と先手後手を決めてください。<br />
-                        ２，すると、それぞれ数字が書いてある9つのパネルが二組、合計18枚出てきます。<br />
+                        ２，すると、それぞれ数字が書いてある9つのパネルが出てきます。<br />
                         ３，このパネルをクリックすることでパネルの数字を操作できます。<br />
                     </p>
                     <p>
                         ４，パネルをクリックすると、クリックした周囲にあるパネルの数字にクリックした数字が足されます。<br />
                         ５，が、計算の結果二桁になる時には、その一桁目のみが反映されます。<br />
-                        ６，そして、クリックしたパネルの数字には、下にあるネクストパネルの数字が新たに現れます。<br />
-                        ７，同時にネクストパネルにはクリックしたパネルの数字が書き込まれます。<br />
+                        ６，そして、クリックしたパネルの数字は0になります。<br />
                     </p>
                     <p>
-                        ８，これを1ターンとし、それぞれが入力したターン数まで互いに操作します。<br />
-                        ９，最終的に合計が大きい方の勝ちです。<br />
-                        １０，一度開始するとこの説明は消えるので気を付けてください。<br />
+                        ７，この操作を繰り返して、全ての数字を0にしてください。<br />
                     </p>
                 </ul>
         </div>
@@ -60,7 +57,6 @@
 
             <p>
             <div id="bodydiv" class='panel body'>
-                    <div>あなた</div><br>
                 <button id="panel0" class="btn btn-secondary tile" onclick="pushed(this.id)" > </button> <button id="panel1" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel2" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button><br />
 
                 <button id="panel3" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel4" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button> <button id="panel5" class="btn btn-secondary tile" onclick="pushed(this.id)" ></button><br />
@@ -83,6 +79,7 @@
 
         </div>
         <div id = "winner" class = "winnerclass"></div> 
+        <div id = "success" class = 'sucessclass'>正解</div>
         <div id = "kakunin"></div>
         <!--<div id = "debug"></div> -->
         
