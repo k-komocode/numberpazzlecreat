@@ -26,7 +26,6 @@ function reset(){
     document.getElementById(panel[i]).innerHTML=Q[i]
     
 }
-  document.getElementById("winner").innerHTML = ""
   document.getElementById('winner').innerHTML = 0
   document.getElementById("sum1").innerHTML = ""
   flg2 = 0
@@ -36,6 +35,8 @@ function reset(){
     document.getElementById('winner').innerHTML = flg2
     flg5 = true
     }
+    document.getElementById("success").style.visibility = "hidden"
+    document.getElementById("kakunin").innerHTML = ""
 }
   
  sum1 = 0
@@ -51,10 +52,13 @@ function reset(){
 
 
 function move(){
+  document.getElementById("kakunin").innerHTML = ""
     count = Number(document.getElementById("movecount").value)
     document.getElementById("rule").style.display="none"
     document.getElementById("bodydiv").style.display="block"
-
+    document.getElementById('winner').innerHTML = 0
+    document.getElementById("sum1").innerHTML = ""
+    document.getElementById("success").style.visibility = "hidden"
     Q = seisei(count)
 
     for (l=0; l < 9 ;l++){
@@ -172,6 +176,7 @@ function panelcaluclation(id){
 
 //生成関数。問題を指定された操作で解けるよう逆回し的にパズルを作り、パズルの初期状態を返す  
 function seisei(tesu){
+  Qans = []
   let firstzeroid = [0,1,2,3,5,6,7,8]   //ここは、問題の最後の操作を決める部分で使う配列
                                         //真ん中を変えると、1手分しか作れない(9マス全部の数字が0でなくなる)ので
                                         //ここの配列では真ん中のパネル、つまりパネル4を抜かしている、
@@ -184,7 +189,7 @@ function seisei(tesu){
   firsthenkaid = firstsec % 8    //最初の変更を加えた要素のID 0-7
 
   mondai[firstzeroid[firsthenkaid]] = firsthenka + 1  //1-9
-  Qans.unshift(firstzeroid[firsthenkaid])  
+  Qans.unshift(firstzeroid[firsthenkaid]+1)  
   
   firsthenkalist = panelsenbetu(firstzeroid[firsthenkaid])    //ここに入れるidに気を付けよ。
   
@@ -208,7 +213,7 @@ function seisei(tesu){
     var millsec = now1.getMilliseconds()
     
     zeroid = millsec % zero.length
-    Qans.unshift(zero[zeroid])  
+    Qans.unshift(zero[zeroid]+1)  
     //以下の関数に入れて、次に0にするところ(問題を解く段階では押すパネル)を探索。
     //ここがあることで次の手の生成に困らない。
 

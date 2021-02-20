@@ -24,7 +24,7 @@
     </head>
 
     <body>
-        <h1>VSパズル(一人用)</h1>
+        <h1>VSパズル(一人用)(ランダム生成)</h1>
             <div id = 'rulebox' class='boxclass'>
                 <ul id = 'rule' class='naibuclass'>
                     <h2>ルールおよび操作説明</h2>
@@ -72,17 +72,18 @@
             </p>
         
         <br>
+        <div class="sportclass">
+            <button class="btn btn-light" onclick="reset()">リセット</button>
+            <br>
 
-        <button class="btn btn-light" onclick="reset()">リセット</button>
-        <br>
 
+            
+            <div id = "winner" class = "winnerclass"></div> 
+            <div id = "success" class = 'sucessclass'>正解</div>
 
-        </div>
-        <div id = "winner" class = "winnerclass"></div> 
-        <div id = "success" class = 'sucessclass'>正解</div>
-
-        <button onclick="kakunin()"">正解表示</button>
-        <div id = "kakunin" ></div>
+            <button onclick="kakunin()"">正解表示</button>
+            <div id = "kakunin" ></div>
+            </div>
         <!--<div id = "debug"></div> -->
         
                 
