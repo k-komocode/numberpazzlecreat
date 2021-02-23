@@ -203,6 +203,7 @@ function seisei(tesu){
     let zero = []
 
     //以下のforで0のパネルを探索。この中から押すパネルが選ばれる。
+    
     for (ii=0; ii < 9; ii++){  
       if (mondai[ii] == 0){
         zero.push(ii)
@@ -213,18 +214,26 @@ function seisei(tesu){
     var millsec = now1.getMilliseconds()
     
     zeroid = millsec % zero.length
-    Qans.unshift(zero[zeroid]+1)  
-    //以下の関数に入れて、次に0にするところ(問題を解く段階では押すパネル)を探索。
-    //ここがあることで次の手の生成に困らない。
+    Qans.unshift(zero[zeroid]+1)
 
-    nextzero = panelsenbetu2(zero[zeroid],mondai)
+    //以下のpanelsenbetu2関数に入れて、次に0にするところ(問題を解く段階では押すパネル)を探索。
+    //既に0のパネルは避ける為のpanelsenbetu2関数。
+    //ここがあることで次の手の生成に困らない。
+    nextzero = panelsenbetu2(zero[zeroid],mondai)   
 
     nextzeroid = nextzero[millsec % nextzero.length]
 
 
-    //0であるmondai[zero[zeroid]]に次に0にする数を入れる
-    mondai[zero[zeroid]] = mondai[nextzeroid]
-
+    //0であるmondai[zero[zeroid]]に次に0にするパネルの数を入れる
+    //しかし初手となるパネルを作っている場合は、必ずしも0のパネル(次に押すパネル)を作る必要が無いので、
+    //イフで分岐する
+    if(i < tesu-2){
+      mondai[zero[zeroid]] = mondai[nextzeroid]
+    }else{
+      var now2 = new Date();
+      var millsec2 = now2.getMilliseconds()
+      mondai[zero[zeroid]] = millsec2 % 9 + 1
+    }
     henka = panelsenbetu(zero[zeroid])
 
     for (iii=0; iii < henka.length ;iii++){
